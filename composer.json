@@ -1,0 +1,22 @@
+{
+    "name": "MadFaill/vk-auth",
+    "description": "Authenticate vk without browser",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "MadFaill",
+            "email": "madfaill@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {
+        "rmccue/requests": "1.*",
+        "ailove-dev/vk-php-sdk": "dev-master",
+        "olamedia/nokogiri": "dev-master"
+    },
+    "autoload": {
+        "psr-0": {
+            "VkApi\\": "src"
+        }
+    }
+}
