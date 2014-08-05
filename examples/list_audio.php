@@ -26,7 +26,13 @@ $token_path = __DIR__;
 $auth = new Auth($login, $password, $token_path);
 $api = new Api($client_id, $scope, $auth);
 
-$params = array('owner_id'=>$api->uid(), 'count'=>100);
-$audios = $api->call('audio.get', $params);
+try
+{
+	$params = array('owner_id'=>$api->uid(), 'count'=>100);
+	$audios = $api->call('audio.get', $params);
 
-var_dump($audios);
+	var_dump($audios);
+}
+catch (\VkApi\Error\AuthFailed $e) {
+	print "Error: ".$e->getMessage()."\r\n";
+}

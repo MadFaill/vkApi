@@ -84,10 +84,7 @@ class Auth
 			{
 				$file = $this->store_path.'/token-'.md5($client_id.serialize($scope)).'.json';
 				if (file_exists($file)) {
-					$token = json_decode(file_get_contents($file), true);
-					if (time() < $token['expires']) {
-						$this->token = $token;
-					}
+					$this->token = json_decode(file_get_contents($file), true);
 				}
 			}
 
@@ -96,7 +93,7 @@ class Auth
 			}
 		}
 
-		if (time() > $this->token['expires']) {
+		if ($this->token['expires'] && time() > $this->token['expires']) {
 			$this->authorize($client_id, $scope);
 		}
 
@@ -123,6 +120,10 @@ class Auth
 		$this->session->headers['Referer'] = $response_form->url;
 		$this->session->headers['Origin'] = 'https://oauth.vk.com';
 
+		if (!$ip_h || !$to || !$origin) {
+			throw new AuthFailed('Wrong client id or scope');
+		}
+
 		$auth_response = $this->auth_post_request($ip_h[0]['value'], $to[0]['value'], $origin[0]['value']);
 
 		// 405 status === OK
@@ -146,7 +147,7 @@ class Auth
 		{
 			$this->token = array(
 				'token' => $m[1],
-				'expires' => $m[2] + time(),
+				'expires' => $m[2] ? $m[2] + time() : 0,
 				'uid'   => $m[3]
 			);
 
@@ -156,7 +157,7 @@ class Auth
 			}
 		}
 		else {
-			throw new AuthFailed('Auth failed!');
+			throw new AuthFailed('Wrong auth params!');
 		}
 	}
 

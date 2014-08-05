@@ -26,7 +26,14 @@ $token_path = __DIR__;
 $auth = new Auth($login, $password, $token_path);
 $api = new Api($client_id, $scope, $auth);
 
-$params = array('q'=>"Огонь и лед: Хроники драконов", 'count'=>200, 'sort'=>1);
-$videos = $api->call('video.search', $params);
+try
+{
+	$params = array('q'=>"Огонь и лед: Хроники драконов", 'count'=>200, 'sort'=>1);
+	$videos = $api->call('video.search', $params);
+	var_dump($videos);
+}
+catch (\VkApi\Error\AuthFailed $e) {
+	print "Error: ".$e->getMessage()."\r\n";
+}
 
-var_dump($videos);
+
