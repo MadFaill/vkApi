@@ -203,22 +203,6 @@ class Auth
 
 		$options = array();
 
-//		$session = $this->session;
-//		$hooks = new \Requests_Hooks();
-//		$hooks->register('curl.before_send',
-//			function(&$ch) use ($session) {
-//
-//				$cookie_string = '';
-//
-//				foreach ($session->options['cookies'] as $cookie) {
-//					$cookie_string .= "{$cookie->name}={$cookie->value};";
-//				}
-//
-//				curl_setopt($ch, CURLOPT_COOKIE, $cookie_string);
-//			});
-//
-//		$options['hooks'] = $hooks;
-
 		return $this->session->post($url, array(), $params, $options);
 	}
 
