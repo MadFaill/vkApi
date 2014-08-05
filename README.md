@@ -18,7 +18,7 @@ Vkontakte API
 ```json
 {
     "require": {
-        "MadFaill/vk-api": "dev"
+        "mad-tools/vk-api": "dev"
     }
 }
 ```
