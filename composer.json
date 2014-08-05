@@ -1,6 +1,6 @@
 {
-    "name": "MadFaill/vk-auth",
-    "description": "Authenticate vk without browser",
+    "name": "MadFaill/vk-api",
+    "description": "Api with auth provider",
     "license": "MIT",
     "authors": [
         {
