@@ -10,7 +10,22 @@ Vkontakte API
 Примеры
 =======
 
-Примере использования можно посмотреть в ``` examples ```
+Примеры использования можно посмотреть в ``` examples ```
+
+
+```php
+use VkApi\Auth;
+use VkApi\Api;
+
+$scope = array();
+$token_path = __DIR__;
+
+$auth = new Auth($login, $password, $token_path);
+$api = new Api($client_id, $scope, $auth);
+
+$result = $api->call('method', array('option1'=>'value1'));
+
+```
 
 Установка
 =========
