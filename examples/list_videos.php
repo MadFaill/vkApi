@@ -35,5 +35,8 @@ try
 catch (\VkApi\Error\AuthFailed $e) {
 	print "Error: ".$e->getMessage()."\r\n";
 }
+catch (\VkApi\Error\Exception $e) {
+	print "Api Error: ".$e->getMessage()."\r\n";
+}
 
 

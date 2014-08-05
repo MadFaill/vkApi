@@ -9,6 +9,7 @@
  *
  */
 namespace VkApi;
+use VkApi\Error\Exception;
 
 /**
  * Class        Api
@@ -53,9 +54,11 @@ class Api
 
 	/**
 	 * Апи вызов
+	 *
 	 * @param $method
 	 * @param array $params
 	 * @return array
+	 * @throws Error\Exception
 	 */
 	public function call($method, array $params=Null)
 	{
@@ -67,7 +70,19 @@ class Api
 		$this->api->setAccessToken($token['token']);
 		$this->api->setUserId($token['uid']);
 
-		return $this->api->api($method, $params);
+		try
+		{
+			$result = $this->api->api($method, $params);
+
+			if (!isset($result['response'])) {
+				throw new Exception('Unknown result format');
+			}
+
+			return $result['response'];
+		}
+		catch (\VkApiException $e) {
+			throw new Exception($e->getMessage());
+		}
 	}
 
 	/**
