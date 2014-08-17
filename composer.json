@@ -8,7 +8,7 @@
             "email": "madfaill@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "stable",
     "require": {
         "rmccue/requests": "1.*",
         "ailove-dev/vk-php-sdk": "dev-master",
