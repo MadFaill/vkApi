@@ -25,6 +25,7 @@ $token_path = __DIR__;
 
 $auth = new Auth($login, $password, $token_path);
 $api = new Api($client_id, $scope, $auth);
+$api->setApiVersion('5.24');
 
 try
 {

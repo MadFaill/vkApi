@@ -25,6 +25,7 @@ class Api
 {
 	private $client_id;
 	private $scope;
+	private $api_version;
 
 	private $token = array(
 		'token' => '',
@@ -52,6 +53,11 @@ class Api
 		$this->auth = $auth;
 	}
 
+	public function setApiVersion($v)
+	{
+		$this->api_version = $v;
+	}
+
 	/**
 	 * Апи вызов
 	 *
@@ -64,6 +70,10 @@ class Api
 	{
 		if (!$this->api) {
 			$this->api = new \VkPhpSdk();
+		}
+
+		if ($this->api_version) {
+			$params['v'] = $this->api_version;
 		}
 
 		$token = $this->token();
