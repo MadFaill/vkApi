@@ -115,16 +115,17 @@ class Auth
 		$dom = \nokogiri::fromHtml($response_form->body);
 		$origin = $dom->get('input[name="_origin"]')->toArray();
 		$ip_h = $dom->get('input[name="ip_h"]')->toArray();
+		$lg_h = $dom->get('input[name="lg_h"]')->toArray();
 		$to = $dom->get('input[name="to"]')->toArray();
 
 		$this->session->headers['Referer'] = $response_form->url;
 		$this->session->headers['Origin'] = 'https://oauth.vk.com';
 
-		if (!$ip_h || !$to || !$origin) {
+		if (!$ip_h || $lg_h || !$to || !$origin) {
 			throw new AuthFailed('Wrong client id or scope');
 		}
 
-		$auth_response = $this->auth_post_request($ip_h[0]['value'], $to[0]['value'], $origin[0]['value']);
+		$auth_response = $this->auth_post_request($ip_h[0]['value'], $lg_h[0]['value'], $to[0]['value'], $origin[0]['value']);
 
 		// 405 status === OK
 		if (!$auth_response->success) {
@@ -187,14 +188,16 @@ class Auth
 	 * Запрос на авторизацию
 	 *
 	 * @param $ip_h
+	 * @param $lg_h
 	 * @param $to
 	 * @param $_origin
 	 * @return \Requests_Response
 	 */
-	private function auth_post_request($ip_h, $to, $_origin)
+	private function auth_post_request($ip_h, $lg_h, $to, $_origin)
 	{
 		$params = array(
 			'ip_h' => $ip_h,
+			'lg_h' => $lg_h,
 			'to'    => $to,
 			'_origin'   => $_origin,
 			'email' => $this->login,
