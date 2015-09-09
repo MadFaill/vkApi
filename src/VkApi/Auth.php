@@ -121,7 +121,7 @@ class Auth
 		$this->session->headers['Referer'] = $response_form->url;
 		$this->session->headers['Origin'] = 'https://oauth.vk.com';
 
-		if (!$ip_h || $lg_h || !$to || !$origin) {
+		if (!$ip_h || !$lg_h || !$to || !$origin) {
 			throw new AuthFailed('Wrong client id or scope');
 		}
 
