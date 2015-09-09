@@ -33,7 +33,7 @@ class Api
 	);
 
 	/**
-	 * @var \VkPhpSdk
+	 * @var Vk
 	 */
 	private $api;
 
@@ -41,7 +41,7 @@ class Api
 	private $auth;
 
 	/**
-	 * @param $client_id   Идентификатор приложения
+	 * @param int $client_id Идентификатор приложения
 	 * @param array $scope Список доступов
 	 * @param Auth $auth
 	 */
@@ -69,30 +69,23 @@ class Api
 	public function call($method, array $params=Null)
 	{
 		if (!$this->api) {
-			$this->api = new \VkPhpSdk();
+			$this->api = new Vk();
 		}
 
 		if ($this->api_version) {
-			$params['v'] = $this->api_version;
+			$this->api->setApiVersion($this->api_version);
 		}
 
 		$token = $this->token();
 		$this->api->setAccessToken($token['token']);
-		$this->api->setUserId($token['uid']);
 
-		try
-		{
-			$result = $this->api->api($method, $params);
+        $result = $this->api->api($method, $params);
 
-			if (!isset($result['response'])) {
-				throw new Exception('Unknown result format');
-			}
+        if (!isset($result['response'])) {
+            throw new Exception('Unknown result format');
+        }
 
-			return $result['response'];
-		}
-		catch (\VkApiException $e) {
-			throw new Exception($e->getMessage());
-		}
+        return $result['response'];
 	}
 
 	/**

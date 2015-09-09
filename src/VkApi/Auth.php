@@ -113,9 +113,9 @@ class Auth
 		$response_form = $this->login_form($client_id, $scope);
 
 		$dom = \nokogiri::fromHtml($response_form->body);
-		$origin = $dom->get('input[name=_origin]')->toArray();
-		$ip_h = $dom->get('input[name=ip_h]')->toArray();
-		$to = $dom->get('input[name=to]')->toArray();
+		$origin = $dom->get('input[name="_origin"]')->toArray();
+		$ip_h = $dom->get('input[name="ip_h"]')->toArray();
+		$to = $dom->get('input[name="to"]')->toArray();
 
 		$this->session->headers['Referer'] = $response_form->url;
 		$this->session->headers['Origin'] = 'https://oauth.vk.com';
