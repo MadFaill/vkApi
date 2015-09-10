@@ -137,7 +137,7 @@ class Auth
 			$this->session->headers['Referer'] = $auth_response->url;
 
 			$confirm_form = \nokogiri::fromHtml($auth_response->body);
-			$confirm_form_data = $confirm_form->get('form[method=post]')->toArray();
+			$confirm_form_data = $confirm_form->get('form[method="post"]')->toArray();
 
 			$confirm_response = $this->post_confirm($confirm_form_data[0]['action']);
 
