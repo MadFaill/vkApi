@@ -81,6 +81,10 @@ class Api
 
         $result = $this->api->api($method, $params);
 
+        if (isset($result['error'])) {
+            throw new Exception($result['error']['error_msg']);
+        }
+
         if (!isset($result['response'])) {
             throw new Exception('Unknown result format');
         }
