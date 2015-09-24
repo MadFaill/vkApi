@@ -8,7 +8,6 @@
             "email": "madfaill@gmail.com"
         }
     ],
-    "minimum-stability": "stable",
     "require": {
         "rmccue/requests": "1.*",
         "olamedia/nokogiri": "dev-master"
